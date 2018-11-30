@@ -11,8 +11,8 @@ public class DataManager
 {
     // database columns
     private static final String ROWID 	    = "_id";
-    private static final String TASK_NAME 	= "task_name";
-    private static final String TASK_DESCRIPTION = "task_desc";
+    private static final String USERNAME 	= "username";
+    private static final String SCORE = "score";
     private static final String DATABASE_NAME 	= "TaskList";
     private static final String DATABASE_TABLE 	= "Tasks";
     private static final int DATABASE_VERSION 	= 1;
@@ -20,8 +20,8 @@ public class DataManager
     // SQL statement to create the database
     private static final String DATABASE_CREATE =
             "create table Tasks (_id integer primary key autoincrement, " +
-                    "task_name text not null," +
-                    "task_desc text not null);";
+                    "username text not null," +
+                    "score text not null);";
 
     private final Context context;
     private DatabaseHelper DBHelper;
@@ -46,40 +46,39 @@ public class DataManager
         DBHelper.close();
     }
 
-    public long insertTask(String taskName, String taskDesc)
+    public long insertScore(String username, String score)
     {
         ContentValues initialValues = new ContentValues();
-        initialValues.put(TASK_NAME, taskName);
-        initialValues.put(TASK_DESCRIPTION, taskDesc);
+        initialValues.put(USERNAME, username);
+        initialValues.put(SCORE, score);
         return db.insert(DATABASE_TABLE, null, initialValues);
     }
 
     public boolean deleteTask(long rowId)
     {
-        //
         return db.delete(DATABASE_TABLE, ROWID +
                 "=" + rowId, null) > 0;
     }
 
-    public Cursor getAllTasks()
+    public Cursor getAllScores()
     {
         return db.query(DATABASE_TABLE, new String[]
                         {
                                 ROWID,
-                                TASK_NAME,
-                                TASK_DESCRIPTION,
+                                USERNAME,
+                                SCORE,
                         },
                 null, null, null, null, null);
     }
 
-    public Cursor getTask(long rowId) throws SQLException
+    public Cursor getScore(long rowId) throws SQLException
     {
         Cursor mCursor =
                 db.query(true, DATABASE_TABLE, new String[]
                                 {
                                         ROWID,
-                                        TASK_NAME,
-                                        TASK_DESCRIPTION,
+                                        USERNAME,
+                                        SCORE,
                                 },
                         ROWID + "=" + rowId,  null, null, null, null, null);
 
@@ -91,11 +90,11 @@ public class DataManager
     }
 
     //
-    public boolean updateTask(long rowId, String firstName, String surname)
+    public boolean updateScore(long rowId, String username, String score)
     {
         ContentValues args = new ContentValues();
-        args.put(TASK_NAME, firstName);
-        args.put(TASK_DESCRIPTION, surname);
+        args.put(USERNAME, username);
+        args.put(SCORE, score);
         return db.update(DATABASE_TABLE, args,
                 ROWID + "=" + rowId, null) > 0;
     }

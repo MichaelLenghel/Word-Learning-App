@@ -20,6 +20,7 @@ public class HangmanActivity extends AppCompatActivity {
     Context context;
     CharSequence addText;
     int duration;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,22 +30,24 @@ public class HangmanActivity extends AppCompatActivity {
         addText = "Please input a username";
         duration = Toast.LENGTH_SHORT;
 
-        //Anon fxn.
+        //Anon fxn. to go to score
         Button btn = (Button)findViewById(R.id.viewScores);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), ScoreBoardActivity.class);
+                intent = new Intent(getBaseContext(), ScoreBoardActivity.class);
                 startActivity(intent);
             }
         });
     }
+    //Using public static content to access variable in other activity
+    public static String content;
 
     /** Called when the user touches the button */
     public void startHangman(View view)
     {
         EditText inputText = (EditText)findViewById(R.id.inputName);
-        String content = inputText.getText().toString(); //gets you the contents of edit text
+        content = inputText.getText().toString(); //gets you the contents of edit text
         if (content.matches("")) {
             Toast noNameAlert = Toast.makeText(context, addText, duration);
             //Change position of toast message
@@ -52,7 +55,8 @@ public class HangmanActivity extends AppCompatActivity {
             noNameAlert.show();
         }
         else {
-            setContentView(R.layout.activity_playing_hangman);
+            intent = new Intent(getBaseContext(), PlayingHangman.class);
+            startActivity(intent);
         }
     }
 }

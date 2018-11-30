@@ -24,14 +24,14 @@ public class ScoreBoardActivity extends ListActivity {
             e.printStackTrace();
         }
 
-        long val = db.insertTask("Michael", "300");
-        long val2 = db.insertTask("David", "40");
-        long val3 = db.insertTask("John", "20");
+//        long val = db.insertScore("Michael", "300");
+//        long val2 = db.insertScore("David", "40");
+//        long val3 = db.insertScore("John", "20");
 
-        Cursor dbCursor = db.getAllTasks();
+        Cursor dbCursor = db.getAllScores();
         dbCursor.moveToFirst();
 
-        String[] columns = {"_id", "task_name"};
+        String[] columns = {"_id", "username", "score"};
         int[] rowIDs = {R.id.scoreid, R.id.username};
 
         //Note I use row layout here
@@ -39,5 +39,10 @@ public class ScoreBoardActivity extends ListActivity {
                 R.layout.row, dbCursor, columns, rowIDs));
         setListAdapter(mAdapter);
         db.close();
+    }
+
+    public void prevScreen()
+    {
+        finish();
     }
 }
