@@ -13,13 +13,13 @@ public class DataManager
     private static final String ROWID 	    = "_id";
     private static final String USERNAME 	= "username";
     private static final String SCORE = "score";
-    private static final String DATABASE_NAME 	= "TaskList";
-    private static final String DATABASE_TABLE 	= "Tasks";
+    private static final String DATABASE_NAME 	= "ScoreList";
+    private static final String DATABASE_TABLE 	= "Scores";
     private static final int DATABASE_VERSION 	= 1;
 
     // SQL statement to create the database
     private static final String DATABASE_CREATE =
-            "create table Tasks (_id integer primary key autoincrement, " +
+            "create table Scores (_id integer primary key autoincrement, " +
                     "username text not null," +
                     "score text not null);";
 
@@ -68,7 +68,7 @@ public class DataManager
                                 USERNAME,
                                 SCORE,
                         },
-                null, null, null, null, null);
+                null, null, null, null, SCORE+" DESC");
     }
 
     public Cursor getScore(long rowId) throws SQLException

@@ -1,8 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ListView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:cacheColorHint="#00000000"
-    android:id="@android:id/list">
-</ListView>
+    android:background="@color/blue">
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#9068be"
+            android:text="@string/name"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#9068be"
+            android:text="@string/score"
+            android:textSize="22sp"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1" >
+    </ListView>
+</RelativeLayout>

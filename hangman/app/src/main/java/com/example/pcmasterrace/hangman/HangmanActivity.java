@@ -21,6 +21,7 @@ public class HangmanActivity extends AppCompatActivity {
     CharSequence addText;
     int duration;
     Intent intent;
+    String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +41,13 @@ public class HangmanActivity extends AppCompatActivity {
             }
         });
     }
-    //Using public static content to access variable in other activity
-    public static String content;
 
     /** Called when the user touches the button */
     public void startHangman(View view)
     {
         EditText inputText = (EditText)findViewById(R.id.inputName);
-        content = inputText.getText().toString(); //gets you the contents of edit text
-        if (content.matches("")) {
+        userName = inputText.getText().toString(); //gets you the contents of edit text
+        if (userName.matches("")) {
             Toast noNameAlert = Toast.makeText(context, addText, duration);
             //Change position of toast message
             noNameAlert.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 1000);
@@ -56,6 +55,8 @@ public class HangmanActivity extends AppCompatActivity {
         }
         else {
             intent = new Intent(getBaseContext(), PlayingHangman.class);
+            intent.putExtra("userName", userName);
+
             startActivity(intent);
         }
     }

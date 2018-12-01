@@ -3,4 +3,7 @@
     <string name="title_activity_playing_hangman">playingHangman</string>
     <string name="title_activity_score_board">scoreBoardActivity</string>
     <string name="title_activity_game_over">gameOverActivity</string>
+    <string name="rank">Rank</string>
+    <string name="name">Name</string>
+    <string name="score">Score</string>
 </resources>
