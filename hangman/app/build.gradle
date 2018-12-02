@@ -29,4 +29,5 @@ dependencies {
     implementation 'com.couchbase.lite:couchbase-lite-android:1.+'
     implementation 'com.shamanland:fab:0.0.8'
     implementation 'com.android.support:appcompat-v7:+'
+    implementation 'org.jsoup:jsoup:1.11.2'
 }

@@ -6,22 +6,17 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
-import java.io.BufferedInputStream;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 
@@ -48,7 +43,7 @@ public class GameOverActivity extends AppCompatActivity {
         definition = (TextView) findViewById(R.id.definition);
 
 
-                //Won = 1, Lose = 0
+        //Won = 1, Lose = 0
         gameStatus= getIntent().getIntExtra("status",0);//0 is default value
         userScore = getIntent().getIntExtra("score",0);//0 is default value
 
@@ -100,18 +95,35 @@ public class GameOverActivity extends AppCompatActivity {
     {
         protected String doInBackground(String... urls) {
             // params comes from the execute() call: params[0] is the url.
-            try
-            {
-                return downloadUrl(urls[0]);
+
+            String description = null;
+            try {
+                Document doc = Jsoup.connect(urls[0]).get();
+                description =
+                        doc.select("meta[name=description]").get(0)
+                                .attr("content");
             } catch (IOException e) {
-                return "Unable to retrieve web page. URL may be invalid.";
+                e.printStackTrace();
             }
+            Log.d("checkmeout", description);
+
+           return description;
+
+            //Solution. 2 (Not using Jsoup library)
+
+//            String def = "";
+//            //Extract everything between contact tag
+//            while (pageResult.indexOf("content=\"") > 0)
+//        {
+//            def = def.substring(0, def.indexOf("content=\"")) +
+//                    def.substring(def.indexOf("\">") + "\">".length());
+//        }
+//            Log.d(DEBUG_TAG, pageResult);
         }
         // onPostExecute displays the results of the AsyncTask.
-        protected void onPostExecute(String result)
+        protected void onPostExecute(String def)
         {
-
-            definition.setText(result);
+            definition.setText(def);
         }
     }
 
@@ -139,9 +151,6 @@ public class GameOverActivity extends AppCompatActivity {
             // Convert the InputStream into a string
             String contentAsString = readIt(is);
             return contentAsString;
-
-            // Makes sure that the InputStream is closed after the app is
-            // finished using it.
         }
         finally
         {
@@ -150,8 +159,8 @@ public class GameOverActivity extends AppCompatActivity {
             }
         }
     }
-    // Reads an InputStream and converts it to a String.
-    // Reads an InputStream and converts it to a String.
+
+    // Standard inputstream to string conversion
     private String readIt(InputStream is)
     {
 
@@ -225,12 +234,4 @@ public class GameOverActivity extends AppCompatActivity {
         intent = new Intent(getBaseContext(), ScoreBoardActivity.class);
         startActivity(intent);
     }
-
-    /** Called when the user touches the button */
-    public void takePicture(View view)
-    {
-        //setContentView(R.layout.activity_playing_hangman);
-        // Do something in response to button click
-    }
-
 }
