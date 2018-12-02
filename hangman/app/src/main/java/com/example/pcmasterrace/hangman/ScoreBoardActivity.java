@@ -3,11 +3,8 @@ package com.example.pcmasterrace.hangman;
 
 import android.app.ListActivity;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 
 import java.sql.SQLException;
 

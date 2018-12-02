@@ -20,7 +20,7 @@ import java.util.List;
 public class PlayingHangman extends AppCompatActivity {
     private static Context context;
     private List<String> words;
-    String TAG = "SpacesNotAdded";
+    String TAG = "word_to_guess";
     String wordToGuess;
     String userName;
     TextView currentWord;
@@ -41,6 +41,8 @@ public class PlayingHangman extends AppCompatActivity {
         currentWord = (TextView) findViewById(R.id.wordLetters);
         livesLeft = (TextView) findViewById(R.id.livesLeft);
         textContext = getApplicationContext();
+
+        score = getIntent().getIntExtra("score",0);//0 is default value
 
         //Get the users name that we will add to the score
         Bundle extras = getIntent().getExtras();
@@ -65,6 +67,7 @@ public class PlayingHangman extends AppCompatActivity {
         updateScreen();
     }
 
+    //Pass in users guess
     public void submitGuess(View view)
     {
         EditText inputText = (EditText)findViewById(R.id.userGuess);
@@ -75,6 +78,8 @@ public class PlayingHangman extends AppCompatActivity {
             intent = new Intent(getBaseContext(), GameOverActivity.class);
             intent.putExtra("status", 1);
             intent.putExtra("score", score);
+            intent.putExtra("userName", userName);
+            intent.putExtra("word", wordToGuess);
             startActivity(intent);
         }
         // Accounts for a letter guess
@@ -139,6 +144,8 @@ public class PlayingHangman extends AppCompatActivity {
             intent = new Intent(getBaseContext(), GameOverActivity.class);
             intent.putExtra("status", 1);
             intent.putExtra("score", score);
+            intent.putExtra("userName", userName);
+            intent.putExtra("word", wordToGuess);
             startActivity(intent);
         }
 

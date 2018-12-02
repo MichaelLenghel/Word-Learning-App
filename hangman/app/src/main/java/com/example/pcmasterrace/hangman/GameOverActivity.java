@@ -131,6 +131,7 @@ public class GameOverActivity extends AppCompatActivity {
     // the web page content as a InputStream, which it returns as
     // a string.
 
+    //This is an alternative method to get the html data, but I opted for jsoup instead
     private String downloadUrl(String myurl) throws IOException
     {
         InputStream is = null;
@@ -232,6 +233,10 @@ public class GameOverActivity extends AppCompatActivity {
     {
 
         intent = new Intent(getBaseContext(), ScoreBoardActivity.class);
+        intent.putExtra("status", 1);
+        intent.putExtra("score", userScore);
+        intent.putExtra("userName", userName);
+        intent.putExtra("word", userScore);
         startActivity(intent);
     }
 }
